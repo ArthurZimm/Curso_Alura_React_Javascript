@@ -2,12 +2,18 @@ import { useState } from 'react';
 import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
+import Rodape from './componentes/Rodape';
 
 function App() {
 
   const [colaboradores, setColaboradores] = useState([]);
 
   const times = [
+    {
+      nome: 'Programação',
+      corPrimaria: '#A6D187',
+      corSecundaria: '#F0F8E9',
+    },
     {
       nome: 'Front-End',
       corPrimaria: '#82CFFA',
@@ -42,15 +48,24 @@ function App() {
 
 
   const aoNovoColaborador = (colaborador) => {
-    console.log("Novo colaborador", colaborador);
     setColaboradores([...colaboradores, colaborador]);
   };
 
   return (
     <div>
       <Banner />
-      <Formulario aoColaboradorCadastrado={colaborador => aoNovoColaborador(colaborador)} times={times} />
-      {times.map((time) => <Time key={time.nome} nome={time.nome} corPrimaria={time.corPrimaria} corSecundaria={time.corSecundaria} colaboradores={colaboradores} />)}
+      <Formulario aoColaboradorCadastrado={colaborador => aoNovoColaborador(colaborador)} times={times.map(time => time.nome)} />
+      {times.map(
+        time =>
+          <Time
+            key={time.nome}
+            nome={time.nome}
+            corPrimaria={time.corPrimaria}
+            corSecundaria={time.corSecundaria}
+            colaboradores={colaboradores.filter(colab => colab.timeSelecionado === time.nome)} />
+      )
+      }
+      < Rodape />
     </div>
   );
 }

@@ -5,13 +5,6 @@ import Botao from '../Botao'
 import { useState } from 'react';
 
 const Formulario = (props) => {
-    const time = [
-        'Programação', 
-        'Front-End',
-        'Data Science', 
-        'DevOps', 
-        'Ux Design'
-    ]
 
     const [nome, setNome] = useState('')
     const [cargo, setCargo] = useState('')
@@ -26,8 +19,11 @@ const Formulario = (props) => {
             imagem,
             timeSelecionado
         });
+        setNome('')
+        setCargo('')
+        setImagem('')
+        setTimeSelecionado('')
     }
-
     return (
         <section className='formulario'>
             <form onSubmit={aoSalvar}>
@@ -52,7 +48,7 @@ const Formulario = (props) => {
                 <ListaSuspensa
                     required={true}
                     label="Time"
-                    itens={time}
+                    itens={props.times}
                     valor={timeSelecionado}
                     aoAlterado={valor => setTimeSelecionado(valor)} />
                 <Botao> Criar Card</Botao>
